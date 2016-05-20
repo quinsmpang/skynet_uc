@@ -38,3 +38,23 @@ You can also use other official Lua versions, just edit the Makefile by yourself
 
 * Read Wiki https://github.com/cloudwu/skynet/wiki
 * The FAQ in wiki https://github.com/cloudwu/skynet/wiki/FAQ
+
+
+
+## 下面是本分支特征说明
+
+编译用：make linux
+
+### service_src/service_otu.c
+
+利用了skynet的network框架编写的udp服务器。
+参见 makefile，和 test/test_otu.lua
+
+### 3rd/lua-sec
+
+利用openssl为skynet添加了RSA、AES、MD5、HMAC等加解密能力。
+参见makefile和 test/test_sec.lua
+
+
+
+
