@@ -48,7 +48,7 @@ CSERVICE = snlua logger gate harbor otu
 LUA_CLIB = skynet socketdriver bson mongo md5 netpack \
   clientsocket memory profile multicast \
   cluster crypt sharedata stm sproto lpeg \
-  mysqlaux debugchannel sec
+  mysqlaux debugchannel sec lsqlite3 cjson
 
 SKYNET_SRC = skynet_main.c skynet_handle.c skynet_module.c skynet_mq.c \
   skynet_server.c skynet_start.c skynet_timer.c skynet_error.c \
@@ -136,6 +136,13 @@ $(LUA_CLIB_PATH)/otc.so : 3rd/otc/otc.c | $(LUA_CLIB_PATH)
 $(LUA_CLIB_PATH)/sec.so : 3rd/lua-sec/libsec.c /usr/local/ssl/lib/libcrypto.a | $(LUA_CLIB_PATH)
 	$(CC) $(CFLAGS) $(SHARED) -I/usr/local/ssl/include $^ -o $@ 
 
+$(LUA_CLIB_PATH)/lsqlite3.so : 3rd/lsqlite3/lsqlite3.c 3rd/sqlite-3120200/sqlite3.c | $(LUA_CLIB_PATH)
+	$(CC) $(CFLAGS) $(SHARED) -I3rd/lsqlite3 -I3rd/sqlite-3120200  $^ -o $@ 
+
+$(LUA_CLIB_PATH)/cjson.so : | $(LUA_CLIB_PATH)
+	cd 3rd/lua-cjson && $(MAKE) LUA_INCLUDE_DIR=../../$(LUA_INC) CC=$(CC) CJSON_LDFLAGS="$(SHARED)" && cd ../.. && cp 3rd/lua-cjson/cjson.so $@
+
+
 
 clean :
 	rm -f $(SKYNET_BUILD_PATH)/skynet $(CSERVICE_PATH)/*.so $(LUA_CLIB_PATH)/*.so
@@ -145,5 +152,6 @@ ifneq (,$(wildcard 3rd/jemalloc/Makefile))
 	cd 3rd/jemalloc && $(MAKE) clean
 endif
 	cd 3rd/lua && $(MAKE) clean
+	cd 3rd/lua-cjson && $(MAKE) clean
 	rm -f $(LUA_STATICLIB)
 

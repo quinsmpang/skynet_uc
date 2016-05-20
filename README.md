@@ -56,5 +56,13 @@ You can also use other official Lua versions, just edit the Makefile by yourself
 参见makefile和 test/test_sec.lua
 
 
+### sqlite3 支持
+3rd/lsqlite3  和 3rd/sqlite-3120200
+测试：
+	test/test_sqlite.lua
+	test/test_sqlite_mem.lua
 
-
+### json支持
+3rd/lua-cjson
+测试：
+	test/test_cjson.lua
