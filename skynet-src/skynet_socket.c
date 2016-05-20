@@ -194,7 +194,7 @@ skynet_socket_udp_send(struct skynet_context *ctx, int id, const char * address,
 }
 
 const char *
-skynet_socket_udp_address(struct skynet_socket_message *msg, int *addrsz) {
+skynet_socket_udp_address(const struct skynet_socket_message *msg, int *addrsz) {
 	if (msg->type != SKYNET_SOCKET_TYPE_UDP) {
 		return NULL;
 	}
